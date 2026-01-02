@@ -28,7 +28,7 @@ struct Profile: Identifiable, Hashable, Codable {
     
     
     // MOCK DATA
-extension TaskGroup {
+    extension TaskGroup {
         static let sampleData: [TaskGroup] = [
             TaskGroup(title: "Groceries", symbolName: "storefront.circle.fill", tasks: [
                 TaskItem(title: "Buy Apples"),
@@ -41,11 +41,12 @@ extension TaskGroup {
             ])
         ]
     }
-
-extension Profile {
-    static let sample: [Profile] = [
-            Profile(name: "Professor", proflieImage: "professor", groups: TaskGroup.sampleData),
-            Profile(name: "Student", proflieImage: "student", groups: [])
+    
+    extension Profile {
+        static let sample: [Profile] = [
+            Profile(name: "Professor", profileImage: "", groups: TaskGroup.sampleData),
+            Profile(name: "Student", profileImage: "student", groups: [])
             
         ]
     }
+}
