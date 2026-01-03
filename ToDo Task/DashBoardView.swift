@@ -16,40 +16,45 @@ struct DashBoardView: View {
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             List(selection: $selectedGroup) {
-                ForEach(profile.groups) {
-                    NavigationLink(value:group) {
+                ForEach($profile.groups) { group in
+                    NavigationLink(value: group) {
                         Label(group.title, systemImage: group.symbolName)
                     }
                 }
             }
-            .navigationTitle(placement: .topBarLeading) {
-                Button {
-                    dismiss() }
-                label : {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Home")
+            .navigationTitle("Groups")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack {
+                            Image(systemName: "chevron.left")
+                            Text("Home")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        isShowingAddGroup = true
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
             }
-            ToolbarItem(placement: .primaryAction) {
-                Button { isShowingAddGroup = true } label : {
-                    Image(systemName: "plus")
+        } detail: {
+            if let group = selectedGroup {
+                if let index = profile.groups.firstIndex(where: { $0.id == group.id }) {
+                    TaskListView(group: $profile.groups[index])
                 }
+            } else {
+                ContentUnavailableView("Select a group to view tasks", systemImage: "sidebar.left")
             }
         }
-    } detail: {
-        if let group = selectedGroup {
-            if let indext = profile.groups.firstIndex(where: { $0.self == group }) {
-                TaskListView(group: $profile.groups[indext])
+        .sheet(isPresented: $isShowingAddGroup) {
+            NewGroupView { newGroup in
+                profile.groups.append(newGroup)
             }
-        } else {
-            ContentUnavailable("Select a group to view tasks", systemImage: "sidebar.left")
         }
-    } .sheet(isPresent: $isShowingAddGroup) {
-        NewGroupView { newGroup in
-            profile.group.append(newGroup)}
-        
     }
 }
-

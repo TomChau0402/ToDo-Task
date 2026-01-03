@@ -1,8 +1,3 @@
-//
-//  ContentView.swift
-//  ToDo Task
-//
-
 import SwiftUI
 import Combine
 
@@ -16,13 +11,13 @@ struct ContentView: View {
     let columns = [GridItem(.adaptive(minimum: 150))]
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
-                Text("Select the workign profile")
+                Text("Select the working profile")
                     .font(.largeTitle.bold())
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach($profiles) {$profile in
-                        NavigationLink(value: profile ){
+                    ForEach($profiles) { $profile in
+                        NavigationLink(value: profile) {
                             VStack {
                                 Image(profile.profileImage)
                                     .resizable()
@@ -32,54 +27,49 @@ struct ContentView: View {
                                 Text(profile.name)
                             }
                         }
-                        
                     }
+                }
+            }
+            .navigationDestination(for: Profile.self) { profile in
+                if let index = profiles.firstIndex(where: { $0.id == profile.id }) {
+                    DashBoardView(profile: $profiles[index])
+                        .navigationBarBackButtonHidden(true)
                 }
             }
         }
         .navigationTitle("Home")
         .navigationBarHidden(true)
-        .navigationDestination(for: Profile.self) { profile in
-            if let index = profiles.name.firstIndex(where: {$0.id ==
-                selectedProfile.id}) {
-                DashBoardView(profile: profile[indext])
-                    .navigationBarBackButtonHidden(true)
+        .onAppear {
+            loadData()
         }
-    }
-    .onAppear {
-                        loadData()
-                    }
-                    .onChange(of: scenePhase) { oldValue, newValue in
-                        if newValue == .active {
-                            print("🟢 App is Active")
-                        } else if newValue == .inactive {
-                            print("🟡 App is Inactive")
-                        } else if newValue == .background {
-                            print("🔴 App is Background - Saving Data!")
-                            saveData()
-                        }
-                    }
-                    .preferredColorScheme(isDarkMode ? .dark : .light)
-                    
-                }
-                
-                func saveData() {
-                    if let encodedData = try? JSONEncoder().encode(taskGroups){
-                        UserDefaults.standard.set(encodedData, forKey: saveKey)
-                    }
-                }
-                
-                func loadData() {
-                    if let savedData = UserDefaults.standard.data(forKey: saveKey){
-                        if let decodedGrpups = try? JSONDecoder().decode([TaskGroup].self, from: savedData) {
-                            taskGroups = decodedGrpups
-                            return
-                        }
-                    }
-                    
-                    // show mock data for dev purposes
-                    taskGroups = TaskGroup.sampleData
-                }
+        .onChange(of: scenePhase) { oldValue, newValue in
+            if newValue == .active {
+                print("🟢 App is Active")
+            } else if newValue == .inactive {
+                print("🟡 App is Inactive")
+            } else if newValue == .background {
+                print("🔴 App is Background - Saving Data!")
+                saveData()
             }
         }
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+    }
     
+    func saveData() {
+        if let encodedData = try? JSONEncoder().encode(profiles) {
+            UserDefaults.standard.set(encodedData, forKey: saveKey)
+        }
+    }
+    
+    func loadData() {
+        if let savedData = UserDefaults.standard.data(forKey: saveKey) {
+            if let decodedProfiles = try? JSONDecoder().decode([Profile].self, from: savedData) {
+                profiles = decodedProfiles
+                return
+            }
+        }
+        
+        // show mock data for dev purposes
+        profiles = Profile.sampleData
+    }
+}
