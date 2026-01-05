@@ -2,12 +2,18 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    
+    @State private var taskGroups = TaskGroup.sampleData
     @State private var profiles: [Profile] = []
+    
+    @State private var selectedGroup: TaskGroup? // selected group
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all // navigation side panel
+    @State private var isShowingAddGroup = false
+    @State private var path = NavigationPath()
+    
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("isDarkMode") private var isDarkMode = false
+    
     let saveKey = "savedProfile"
-    @State private var path = NavigationPath()
     let columns = [GridItem(.adaptive(minimum: 150))]
     
     var body: some View {
@@ -16,15 +22,15 @@ struct ContentView: View {
                 Text("Select the working profile")
                     .font(.largeTitle.bold())
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach($profiles) { $profile in
-                        NavigationLink(value: profile) {
+                    ForEach(taskGroups) { group in
+                        NavigationLink(value: group) {
                             VStack {
-                                Image(profile.profileImage)
+                                Image(group.symbolName)
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 80, height: 80)
                                     .clipShape(.circle)
-                                Text(profile.name)
+                                Text(group.title)
                             }
                         }
                     }
@@ -70,6 +76,6 @@ struct ContentView: View {
         }
         
         // show mock data for dev purposes
-        profiles = Profile.sampleData
+        profiles = Profile.sample
     }
 }
