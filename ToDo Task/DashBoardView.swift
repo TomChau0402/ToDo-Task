@@ -32,6 +32,7 @@ struct DashBoardView: View {
                         HStack {
                             Image(systemName: "chevron.left")
                             Text("Home")
+                            .accessibilityIdentifier("SelectDashBoard")
                         }
                     }
                 }
@@ -45,7 +46,7 @@ struct DashBoardView: View {
             }
         } detail: {
             if let group = selectedGroup {
-                if let index = taskGroups.firstIndex(where: { $0.id == group.id }) {
+                if taskGroups.firstIndex(where: { $0.id == group.id }) != nil {
 //                    TaskListView(group: $profile.groups[index])
                 }
             } else {

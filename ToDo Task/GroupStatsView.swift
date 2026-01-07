@@ -17,6 +17,7 @@ struct GroupStatsView: View {
                     .stroke(lineWidth: 10)
                     .opacity(0.3)
                     .foregroundColor(.cyan)
+                    .accessibilityIdentifier("SelectCircle")
                 
                 Circle()
                     .trim(from: 0.0, to: progress)

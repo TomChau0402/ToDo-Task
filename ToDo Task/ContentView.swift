@@ -21,7 +21,8 @@ struct ContentView: View {
             VStack {
                 Text("Select the working profile")
                     .font(.largeTitle.bold())
-                LazyVGrid(columns: columns, spacing: 20) {
+                    .accessibilityIdentifier("selectProfilerTitle")
+                            LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(taskGroups) { group in
                         NavigationLink(value: group) {
                             VStack {

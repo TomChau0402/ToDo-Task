@@ -17,6 +17,12 @@
             "value" : "%1$lld / %2$lld Completed"
           }
         },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld / %2$lld completado"
+          }
+        },
         "fr-CA" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33,6 +39,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld %%"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld %%<"
           }
         },
         "fr-CA" : {
@@ -53,6 +65,12 @@
             "value" : "Grupper"
           }
         },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupos"
+          }
+        },
         "fr-CA" : {
           "stringUnit" : {
             "state" : "translated",
@@ -69,6 +87,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hjem"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicio"
           }
         },
         "fr-CA" : {
@@ -89,6 +113,12 @@
             "value" : "Vælg en gruppe for at se opgaver"
           }
         },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona un grupo para ver las tareas"
+          }
+        },
         "fr-CA" : {
           "stringUnit" : {
             "state" : "translated",
@@ -107,6 +137,12 @@
             "value" : "Vælg arbejdsprofil"
           }
         },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecciona el perfil de trabajo"
+          }
+        },
         "fr-CA" : {
           "stringUnit" : {
             "state" : "translated",
@@ -123,6 +159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opgavefremskridt"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "rogreso de tareas"
           }
         },
         "fr-CA" : {
