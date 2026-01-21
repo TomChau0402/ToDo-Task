@@ -35,6 +35,7 @@ struct GroupStatsView: View {
             VStack(alignment: .leading) {
                 Text("Task Progress")
                     .font(.headline)
+                    .accessibilityIdentifier("selectProgressTitle")
                 Text("\(completedCount) / \(tasks.count) Completed")
             }
             Spacer()

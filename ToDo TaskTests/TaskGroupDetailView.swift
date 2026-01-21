@@ -8,6 +8,13 @@
 import SwiftUI
 import Combine
 
+struct TaskGroup: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var title: String
+    var symbolName: String
+    var tasks: [TaskItem]
+}
+
 struct TaskGroupDetailView: View {
     @Binding var groups: TaskGroup
     @Environment(\.horizontalSizeClass) var sizeClass

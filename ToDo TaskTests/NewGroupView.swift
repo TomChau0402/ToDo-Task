@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+struct TaskGroup: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var title: String
+    var symbolName: String
+    var tasks: [TaskItem]
+}
+
 struct NewGroupView: View {
     @Environment(\.dismiss) var dismiss
     @State private var groupName = ""
@@ -18,6 +25,7 @@ struct NewGroupView: View {
             Form {
                 Section("Group Name") {
                     TextField("Insert the name of your group", text: $groupName)
+                        .accessibilityIdentifier("newGroupNameField")
                 }
                 
                 Section("Select Icon") {
@@ -32,6 +40,7 @@ struct NewGroupView: View {
                                 .onTapGesture {
                                     selectedIcon = icon
                                 }
+                                .accessibilityIdentifier("iconSelect_\(icon)")
                         }
                     }
                     .padding(.vertical)
@@ -41,6 +50,7 @@ struct NewGroupView: View {
             .toolbar{
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .accessibilityIdentifier("cancelGroupButton")
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {

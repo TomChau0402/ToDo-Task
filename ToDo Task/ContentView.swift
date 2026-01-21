@@ -31,6 +31,7 @@ struct ContentView: View {
                                     .scaledToFit()
                                     .frame(width: 80, height: 80)
                                     .clipShape(.circle)
+                                    .accessibilityIdentifier("selectProfilerSymbol")
                                 Text(group.title)
                             }
                         }
@@ -52,6 +53,7 @@ struct ContentView: View {
         .onChange(of: scenePhase) { oldValue, newValue in
             if newValue == .active {
                 print("🟢 App is Active")
+        
             } else if newValue == .inactive {
                 print("🟡 App is Inactive")
             } else if newValue == .background {

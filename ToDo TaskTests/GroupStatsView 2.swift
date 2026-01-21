@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+struct TaskItem: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var title: String
+    var isCompleted: Bool = false
+}
+
 struct GroupStatsView: View {
     var tasks: [TaskItem]
     var completedCount: Int { tasks.filter {$0.isCompleted}.count }

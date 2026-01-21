@@ -21,6 +21,7 @@ struct DashBoardView: View {
                     NavigationLink(value: group) {
                         Label(group.title, systemImage: group.symbolName)
                     }
+                    .accessibilityIdentifier("groupRow_\(group.title)")
                 }
             }
             .navigationTitle("Groups")
@@ -32,7 +33,7 @@ struct DashBoardView: View {
                         HStack {
                             Image(systemName: "chevron.left")
                             Text("Home")
-                            .accessibilityIdentifier("SelectDashBoard")
+                            .accessibilityIdentifier("SelectChevronLeft")
                         }
                     }
                 }

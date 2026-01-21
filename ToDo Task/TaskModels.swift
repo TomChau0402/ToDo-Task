@@ -19,7 +19,6 @@ struct TaskGroup: Identifiable, Hashable, Codable {
     var title: String
     var symbolName: String
     var tasks: [TaskItem]
-    
 }
 
 struct Profile: Identifiable, Hashable, Codable {
