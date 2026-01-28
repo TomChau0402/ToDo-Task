@@ -26,6 +26,17 @@ struct Profile: Identifiable, Hashable, Codable {
     var name: String
     var profileImage: String
 }
+
+enum Priority {
+    case high, medium,low
+}
+class Task {
+    var name: String
+    var priority: Priority?
+    init(name: String) {
+        self.name = name
+    }
+}
     
     // MOCK DATA
 extension TaskGroup {

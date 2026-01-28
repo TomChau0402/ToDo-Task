@@ -2,8 +2,6 @@
 //  ToDo_TaskTests.swift
 //  ToDo TaskTests
 //
-//  Created by Amy Vu on 12/18/25.
-//
 
 import XCTest
 @testable import ToDo_Task

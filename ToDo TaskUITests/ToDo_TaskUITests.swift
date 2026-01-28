@@ -36,7 +36,7 @@ final class ToDo_TaskUITests: XCTestCase {
     }
     
     //MARK 117 - 1
-
+    
     func testUserFlow() throws {
         let professorCard = app.buttons["proflieCard_Professor"]
         XCTAssertTrue(professorCard.waitForExistence(timeout: 5), "The professor card is not found")
@@ -52,13 +52,71 @@ final class ToDo_TaskUITests: XCTestCase {
         let newGroupRow = app.buttons["groupRow_Testing Project"]
         XCTAssertTrue(newGroupRow.waitForExistence(timeout: 5), "The Test Project group should be visible")
         newGroupRow.tap()
-
+        
         let addTaskButton = app.buttons["addTaskButton"]
         XCTAssertTrue(addTaskButton.exists, "The add task button is not found")
         addTaskButton.tap()
-
+        
         let taskTextField = app.textFields.firstMatch
         taskTextField.tap()
         taskTextField.typeText("Finish UI Test")
     }
+    
+    func testAddingTask() {
+        let taskManager = TaskManager()
+        taskManager.addTask(title: "Buy Groceries")
+        XCTAssertEqual(taskManager.tasks.count, 1)
+        XCTAssertEqual(taskManager.tasks.first?.title, "Buy Groceries")
+        
+    }
+    func testMarkTaskCompleted() {
+        let app = XCUIApplication()
+        app.launch()
+        
+        let taskCell = app.tables.cells.element(boundBy: 0)
+        taskCell.buttons["Complete"].tap()
+        
+        XCTAssertTrue(taskCell.buttons["Complete"].isSelected)
+    }
+    
+    func testTaskHasPriority() {
+        let task = Task(name: "Complete Homework")
+        task.priority = .high
+        XCTAssertEqual(task.priority, .high)
+    }
 }
+
+func testAddTaskButton() throws {
+    let firstProfile = app.button.matching(identifier: "profileCard_Professor").firstMatch
+    XCTAssertTrue(firstProfile.waitForExistence(timeout: 5))
+    firstProfile.tap()
+    
+    let firstGroup = app.buttons.matching(identifier: "groupCard_1").firstMatch
+    XCTAssertTrue(firstGroup.waitForExistence(timeout: 5))
+    firstGroup.tap()
+}
+func testModifyExistingTaskText() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        app.buttons["profileCard_Professor"].tap()
+        app.buttons["groupRow_item"].tap()
+        
+       
+        let taskPredicate = NSPredicate(format: "identifier BEGINSWITH %@", "taskTextField_")
+        let firstTaskTextField = app.textFields.element(matching: taskPredicate).firstMatch
+        
+        XCTAssertTrue(firstTaskTextField.waitForExistence(timeout: 2),
+                      "The task TextField should be found by its prefix identifier.")
+        
+        firstTaskTextField.tap()
+        
+        let currentValue = firstTaskTextField.value as? String ?? ""
+        let deleteString = String(repeating: XCUIKeyboardKey.delete.rawValue, count: currentValue.count)
+        firstTaskTextField.typeText(deleteString)
+        
+        firstTaskTextField.typeText("Buy Organic Apples")
+
+        app.keyboards.buttons["Return"].tap()
+        XCTAssertEqual(firstTaskTextField.value as? String, "Buy Organic Apples", "The task title should be updated.")
+    }

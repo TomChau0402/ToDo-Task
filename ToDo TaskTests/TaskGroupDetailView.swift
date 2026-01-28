@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-struct TaskGroup: Identifiable, Hashable, Codable {
+struct TaskGroups: Identifiable, Hashable, Codable {
     var id = UUID()
     var title: String
     var symbolName: String
